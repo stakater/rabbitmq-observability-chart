@@ -1,10 +1,15 @@
 ---
+{{- if and ( .Values.grafana.rabbitmqAlerts ) ( .Values.grafana.rabbitmqAlerts.enabled ) }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: rabbitmq-alerts-grafana-dashboard
+  namespace: {{ .Values.global.namespace | default .Release.Namespace }}
   labels:
     grafana_dashboard: "true"
+{{- if .Values.grafana.labels }}
+{{- toYaml .Values.grafana.labels | nindent 4 }}
+{{- end }}
 data:
   rabbitmq-alerts-grafana-dashboard.json: |-
     {
@@ -667,3 +672,4 @@ data:
       "uid": "jjCq5SLMk",
       "version": 1
     }
+{{- end }}

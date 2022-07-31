@@ -1,10 +1,16 @@
 ---
+{{- if and ( .Values.grafana.erlangMemoryAllocators ) ( .Values.grafana.erlangMemoryAllocators.enabled ) }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: erlang-memory-allocators-dashboard
+  namespace: {{ .Values.global.namespace | default .Release.Namespace }}
   labels:
     grafana_dashboard: "true"
+{{- if .Values.grafana.labels }}
+{{- toYaml .Values.grafana.labels | nindent 4 }}
+{{- end }}
 data:
   # https://grafana.com/grafana/dashboards/11350
   erlang-memory-allocators-dashboard.json.url: https://grafana.com/api/dashboards/11350/revisions/5/download
+{{- end }}

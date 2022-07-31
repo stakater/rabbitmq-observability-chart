@@ -1,10 +1,15 @@
 ---
+{{- if and ( .Values.grafana.rabbitmqQueue ) ( .Values.grafana.rabbitmqQueue.enabled ) }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: rabbitmq-queue-grafana-dashboard
+  namespace: {{ .Values.global.namespace | default .Release.Namespace }}
   labels:
     grafana_dashboard: "1"
+{{- if .Values.grafana.labels }}
+{{- toYaml .Values.grafana.labels | nindent 4 }}
+{{- end }}
 data:
   rabbitmq-queue-grafana-dashboard.json: |-
     {
@@ -302,3 +307,4 @@ data:
       "uid": "j9t8vwH7k",
       "version": 1
     }
+{{- end }}
