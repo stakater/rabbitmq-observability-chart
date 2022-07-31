@@ -25,8 +25,14 @@ grafana:
     enabled: true
 prometheus:
   alertmanager:
+    labels: {}
     slack:
       enabled: true
+      name: slack-config
+      channel: rabbitmq
+      apiSecret:
+        key: api_url
+        name: rabbitmq-slack-webhook
   monitors:
     podMonitor:
       enabled: true
