@@ -61,7 +61,7 @@ prometheus:
       unroutableMessages:
         enabled: true
     clusterOperator:
-      clusterOperatorUnavailableReplicas:
+      unavailableReplicas:
         enabled: true
     rabbitmqPerObject:
       queueHasNoConsumers:

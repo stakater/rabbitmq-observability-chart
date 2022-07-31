@@ -1,8 +1,10 @@
 ---
+{{- if and ( .Values.prometheus.rules.rabbitmq.recordingRules ) ( .Values.prometheus.rules.rabbitmq.recordingRules.enabled ) }}
 apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
   name: rabbitmq-recording-rules
+  namespace: {{ .Values.global.namespace | default .Release.Namespace }}
   # If labels are defined in spec.ruleSelector.matchLabels of your deployed Prometheus object, make sure to include them here.
   labels:
     role: alert-rules
@@ -27,3 +29,4 @@ spec:
         by (namespace, rabbitmq_cluster, alertname, severity, instance, endpoint, pod, container, persistentvolumeclaim)
         ("alert_state_numeric", ALERTS:rabbitmq_alert_state_numeric)
       record: ALERTS:rabbitmq_alert_state_discrete
+{{- end }}

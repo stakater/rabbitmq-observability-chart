@@ -1,8 +1,10 @@
 ---
+{{- if and ( .Values.prometheus.rules.clusterOperator.unavailableReplicas ) ( .Values.prometheus.rules.clusterOperator.unavailableReplicas.enabled ) }}
 apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
   name: rabbitmq-cluster-operator-unavailable-replicas
+  namespace: {{ .Values.global.namespace | default .Release.Namespace }}
   # If labels are defined in spec.ruleSelector.matchLabels of your deployed Prometheus object, make sure to include them here.
   labels:
     role: alert-rules
@@ -27,3 +29,4 @@ spec:
       labels:
         rulesgroup: rabbitmq-operator
         severity: warning
+{{- end }}

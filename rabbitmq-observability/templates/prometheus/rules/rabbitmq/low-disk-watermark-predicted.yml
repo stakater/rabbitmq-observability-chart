@@ -1,8 +1,10 @@
 ---
+{{- if and ( .Values.prometheus.rules.rabbitmq.lowDiskWatermarkPredicted ) ( .Values.prometheus.rules.rabbitmq.lowDiskWatermarkPredicted.enabled ) }}
 apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
   name: rabbitmq-low-disk-watermark-predicted
+  namespace: {{ .Values.global.namespace | default .Release.Namespace }}
   # If labels are defined in spec.ruleSelector.matchLabels of your deployed Prometheus object, make sure to include them here.
   labels:
     role: alert-rules
@@ -43,3 +45,4 @@ spec:
       labels:
         rulesgroup: rabbitmq
         severity: warning
+{{- end }}

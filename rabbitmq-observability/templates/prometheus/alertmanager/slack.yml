@@ -5,8 +5,8 @@ kind: Secret
 metadata:
   # The name must follow the following format where ((ALERTMANAGER_NAME)) is the name of the Alertmanager CRD object:
   # (see https://github.com/prometheus-operator/prometheus-operator/blob/master/Documentation/user-guides/alerting.md#manually-managed-secret)
-  name: alertmanager-{{ .Values.global.namespace | default .Release.Namespace }}
-  namespace: {{ .Values.prometheus.alertmanager.slack.name }}
+  name: alertmanager-{{ .Values.prometheus.alertmanager.slack.name }}
+  namespace: {{ .Values.global.namespace | default .Release.Namespace }}
   labels:
     alert_manager: "true"
 {{- if .Values.prometheus.alertmanager.labels }}

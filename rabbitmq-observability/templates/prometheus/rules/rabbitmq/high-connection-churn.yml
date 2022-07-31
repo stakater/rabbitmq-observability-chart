@@ -1,8 +1,10 @@
 ---
+{{- if and ( .Values.prometheus.rules.rabbitmq.highConnectionChurn ) ( .Values.prometheus.rules.rabbitmq.highConnectionChurn.enabled ) }}
 apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
   name: rabbitmq-high-connection-churn
+  namespace: {{ .Values.global.namespace | default .Release.Namespace }}
   # If labels are defined in spec.ruleSelector.matchLabels of your deployed Prometheus object, make sure to include them here.
   labels:
     role: alert-rules
@@ -36,3 +38,4 @@ spec:
       labels:
         rulesgroup: rabbitmq
         severity: warning
+{{- end }}

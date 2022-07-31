@@ -1,8 +1,10 @@
+{{- if and ( .Values.prometheus.rules.rabbitmq.containerRestarts ) ( .Values.prometheus.rules.rabbitmq.containerRestarts.enabled ) }}
 ---
 apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
   name: rabbitmq-container-restarts
+  namespace: {{ .Values.global.namespace | default .Release.Namespace }}
   # If labels are defined in spec.ruleSelector.matchLabels of your deployed Prometheus object, make sure to include them here.
   labels:
     role: alert-rules
@@ -30,3 +32,4 @@ spec:
         rabbitmq_cluster: '{{`{{ $labels.rabbitmq_cluster }}`}}'
         rulesgroup: rabbitmq
         severity: warning
+{{- end }}
