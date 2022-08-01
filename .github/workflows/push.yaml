@@ -28,13 +28,6 @@ jobs:
         persist-credentials: false # otherwise, the token used is the GITHUB_TOKEN, instead of your personal token
         fetch-depth: 0 # otherwise, you will fail to push refs to dest repo
 
-    - name: Authenticate to OC cluster
-      uses: redhat-actions/oc-login@v1
-      with:
-        openshift_server_url: ${{ secrets.STAKATER_TEST_CLUSTER }}
-        openshift_username: ${{ secrets.STAKATER_TEST_USER }}
-        openshift_password: ${{ secrets.STAKATER_TEST_PASSWORD }}
-
     # Generate tag for chart without "v" prefix
     - name: Generate Tag
       id: generate_tag
@@ -136,14 +129,3 @@ jobs:
       if: always() 
       run: |
          rm $KUBECONFIG
-    
-
-    - name: Notify Slack
-      uses: 8398a7/action-slack@v3
-      if: always() # Pick up events even if the job fails or is canceled.
-      with:
-        status: ${{ job.status }}
-        fields: repo,author,action,eventName,ref,workflow
-      env:
-        GITHUB_TOKEN: ${{ secrets.STAKATER_GITHUB_TOKEN }}
-        SLACK_WEBHOOK_URL: ${{ secrets.STAKATER_DELIVERY_SLACK_WEBHOOK }}
