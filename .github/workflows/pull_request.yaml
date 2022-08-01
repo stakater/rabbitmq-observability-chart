@@ -49,9 +49,9 @@ jobs:
         helm lint ${CHART_NAME}
 
     # Dry run to ensure that manifests are generated successfully 
-    - name: Dry Run Chart
-      run: |
-        helm install ${CHART_NAME} ${CHART_NAME} -f ${CHART_NAME}/values.yaml -n stakater-chart-pipeline-test --dry-run --debug
+    #- name: Dry Run Chart
+    #  run: |
+    #    helm install ${CHART_NAME} ${CHART_NAME} -f ${CHART_NAME}/values.yaml -n stakater-chart-pipeline-test --dry-run --debug
     # package
     - name: Helm Package
       run: |

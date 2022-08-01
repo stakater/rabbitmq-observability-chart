@@ -40,7 +40,7 @@ jobs:
       run: |
         kind create cluster
         kubectl cluster-info
-        
+
     # Generate tag for chart without "v" prefix
     - name: Generate Tag
       id: generate_tag
@@ -70,9 +70,9 @@ jobs:
         helm lint ${CHART_NAME}
 
     # Dry run to ensure that manifests are generated successfully 
-    - name: Dry Run Chart
-      run: |
-        helm install ${CHART_NAME} ${CHART_NAME} -f ${CHART_NAME}/values.yaml -n stakater-chart-pipeline-test --dry-run --debug
+    #- name: Dry Run Chart
+    #  run: |
+    #    helm install ${CHART_NAME} ${CHART_NAME} -f ${CHART_NAME}/values.yaml -n stakater-chart-pipeline-test --dry-run --debug
     # Publish helm chart
     - name: Publish Helm chart
       uses: stefanprodan/helm-gh-pages@master

@@ -35,9 +35,9 @@ prometheus:
         name: rabbitmq-slack-webhook
   monitors:
     podMonitor:
-      enabled: true
+      enabled: false
     serviceMonitor:
-      enabled: true
+      enabled: false
   rules:
     rabbitmq:
       containerRestarts:
