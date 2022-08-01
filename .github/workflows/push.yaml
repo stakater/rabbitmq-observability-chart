@@ -124,8 +124,3 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.STAKATER_GITHUB_TOKEN }}
         WITH_V: true
         DEFAULT_BUMP: patch
-
-    - name: Clean up KUBECONFIG
-      if: always() 
-      run: |
-         rm $KUBECONFIG
