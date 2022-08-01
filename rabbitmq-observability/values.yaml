@@ -39,6 +39,7 @@ prometheus:
     serviceMonitor:
       enabled: false
   rules:
+    labels: {}
     rabbitmq:
       containerRestarts:
         enabled: true
