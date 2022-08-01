@@ -94,7 +94,7 @@ jobs:
         git config --local user.email "stakater@gmail.com"
         git config --local user.name "stakater-user"
         git status 
-        git add application/Chart.yaml
+        git add rabbitmq-observability/Chart.yaml
         git commit -m "[skip-ci] Update artifacts" 
 
     # Push Chart.yaml with Updated Version
