@@ -1,0 +1,70 @@
+# Default values for rabbitmq-observability.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+global:
+  namespace:
+
+grafana:
+  labels: {}
+  erlangDistribution:
+    enabled: true
+  erlangDistributionCompare:
+    enabled: true
+  erlangMemoryAllocators:
+    enabled: true
+  rabbitmqAlerts:
+    enabled: true
+  rabbitmqOverview:
+    enabled: true
+  rabbitmqQueue:
+    enabled: true
+  rabbitmqQuorumQueues:
+    enabled: true
+  rabbitmqStream:
+    enabled: true
+prometheus:
+  alertmanager:
+    labels: {}
+    slack:
+      enabled: true
+      name: slack-config
+      channel: rabbitmq
+      apiSecret:
+        key: api_url
+        name: rabbitmq-slack-webhook
+  monitors:
+    podMonitor:
+      enabled: true
+    serviceMonitor:
+      enabled: true
+  rules:
+    rabbitmq:
+      containerRestarts:
+        enabled: true
+      fileDescriptorsNearLimit:
+        enabled: true
+      highConnectionChurn:
+        enabled: true
+      insufficientDistributionLinks:
+        enabled: true
+      lowDiskWatermarkPredicted:
+        enabled: true
+      noMajorityOfNodesReady:
+        enabled: true
+      persistentVolumeMissing:
+        enabled: true
+      recordingRules:
+        enabled: true
+      tcpSocketsNearLimit:
+        enabled: true
+      unroutableMessages:
+        enabled: true
+    clusterOperator:
+      unavailableReplicas:
+        enabled: true
+    rabbitmqPerObject:
+      queueHasNoConsumers:
+        enabled: true
+      queueIsGrowing:
+        enabled: true

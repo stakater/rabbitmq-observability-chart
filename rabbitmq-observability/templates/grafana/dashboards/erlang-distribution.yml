@@ -1,0 +1,16 @@
+---
+{{- if and ( .Values.grafana.erlangDistribution ) ( .Values.grafana.erlangDistribution.enabled ) }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: erlang-distribution-dashboard
+  namespace: {{ .Values.global.namespace | default .Release.Namespace }}
+  labels:
+    grafana_dashboard: "true"
+{{- if .Values.grafana.labels }}
+{{- toYaml .Values.grafana.labels | nindent 4 }}
+{{- end }}
+data:
+  # https://grafana.com/grafana/dashboards/11352
+  erlang-distribution-dashboard.json.url: https://grafana.com/api/dashboards/11352/revisions/7/download
+{{- end }}
