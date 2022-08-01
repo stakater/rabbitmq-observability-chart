@@ -9,6 +9,7 @@ on:
 
 env:
   CHART_NAME: "rabbitmq-observability"
+  KIND_VERSION: "0.10.0"
 
 jobs:
   build:
@@ -23,6 +24,18 @@ jobs:
       with:
         fetch-depth: 0
         ref: ${{github.event.pull_request.head.sha}}
+
+    - name: Install Kind
+      run: |
+        curl -L -o kind https://github.com/kubernetes-sigs/kind/releases/download/v${KIND_VERSION}/kind-linux-amd64
+        sudo install ./kind /usr/local/bin && rm kind
+        kind version
+        kind version | grep -q ${KIND_VERSION}
+
+    - name: Create Kind Cluster
+      run: |
+        kind create cluster
+        kubectl cluster-info
 
     # Set Up Helm
     - name: Set up Helm

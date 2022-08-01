@@ -13,6 +13,7 @@ on:
 
 env:
   CHART_NAME: "rabbitmq-observability"
+  KIND_VERSION: "0.10.0"
 
 jobs:
   build:
@@ -28,6 +29,18 @@ jobs:
         persist-credentials: false # otherwise, the token used is the GITHUB_TOKEN, instead of your personal token
         fetch-depth: 0 # otherwise, you will fail to push refs to dest repo
 
+    - name: Install Kind
+      run: |
+        curl -L -o kind https://github.com/kubernetes-sigs/kind/releases/download/v${KIND_VERSION}/kind-linux-amd64
+        sudo install ./kind /usr/local/bin && rm kind
+        kind version
+        kind version | grep -q ${KIND_VERSION}
+
+    - name: Create Kind Cluster
+      run: |
+        kind create cluster
+        kubectl cluster-info
+        
     # Generate tag for chart without "v" prefix
     - name: Generate Tag
       id: generate_tag
