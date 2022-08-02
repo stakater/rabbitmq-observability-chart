@@ -1,7 +1,7 @@
 ---
 {{- if and ( .Values.grafana.rabbitmqAlerts ) ( .Values.grafana.rabbitmqAlerts.enabled ) }}
-apiVersion: v1
-kind: ConfigMap
+apiVersion: integreatly.org/v1alpha1
+kind: GrafanaDashboard
 metadata:
   name: rabbitmq-alerts-grafana-dashboard
   namespace: {{ .Values.global.namespace | default .Release.Namespace }}
@@ -10,8 +10,8 @@ metadata:
 {{- if .Values.grafana.labels }}
 {{- toYaml .Values.grafana.labels | nindent 4 }}
 {{- end }}
-data:
-  rabbitmq-alerts-grafana-dashboard.json: |-
+spec:
+  json: |-
     {
       "__inputs": [
         {
