@@ -37,7 +37,7 @@ prometheus:
     podMonitor:
       enabled: false
     serviceMonitor:
-      enabled: true
+      enabled: false
   rules:
     labels: {}
     rabbitmq:
