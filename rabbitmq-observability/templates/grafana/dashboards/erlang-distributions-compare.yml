@@ -153,7 +153,7 @@ spec:
           "targets": [
             {
               "expr": "rate(erlang_vm_dist_send_bytes[60s]) * on(instance) group_left(rabbitmq_cluster, rabbitmq_node) rabbitmq_identity_info{rabbitmq_cluster=~\"$rabbitmq_cluster\", namespace=\"$namespace\"}",
-              "legendFormat": "{{rabbitmq_node}} -> {{peer}}",
+              "legendFormat": "{{`{{rabbitmq_node}}`}} -> {{`{{peer}}`}}",
               "refId": "A"
             }
           ],
@@ -253,7 +253,7 @@ spec:
               "expr": "rate(erlang_vm_dist_send_bytes[60s]) * on(instance) group_left(rabbitmq_cluster, rabbitmq_node) rabbitmq_identity_info{rabbitmq_cluster=~\"$rabbitmq_cluster\", namespace=\"$namespace\"}",
               "format": "time_series",
               "intervalFactor": 1,
-              "legendFormat": "{{rabbitmq_node}} -> {{peer}}",
+              "legendFormat": "{{`{{rabbitmq_node}}`}} -> {{`{{peer}}`}}",
               "refId": "A"
             }
           ],
@@ -388,12 +388,12 @@ spec:
           "targets": [
             {
               "expr": "sum by(instance) (rate(node_network_receive_bytes_total{instance=~\"$host\"}[5m]))",
-              "legendFormat": "{{instance}}",
+              "legendFormat": "{{`{{instance}}`}}",
               "refId": "A"
             },
             {
               "expr": "sum by(name) (rate(container_network_receive_bytes_total{name=~\"$container\"}[1m]))",
-              "legendFormat": "{{name}}",
+              "legendFormat": "{{`{{name}}`}}",
               "refId": "B"
             }
           ],
@@ -464,7 +464,7 @@ spec:
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
-              "legendFormat": "{{instance}}",
+              "legendFormat": "{{`{{instance}}`}}",
               "metric": "",
               "refId": "A",
               "step": 20
@@ -473,7 +473,7 @@ spec:
               "expr": "sum by(name) (rate(container_network_receive_bytes_total{name=~\"$container\"}[1m]))",
               "format": "time_series",
               "intervalFactor": 1,
-              "legendFormat": "{{name}}",
+              "legendFormat": "{{`{{name}}`}}",
               "refId": "B"
             }
           ],
@@ -594,12 +594,12 @@ spec:
           "targets": [
             {
               "expr": "sum by(instance) (rate(node_network_transmit_bytes_total{instance=~\"$host\"}[5m]))",
-              "legendFormat": "{{instance}}",
+              "legendFormat": "{{`{{instance}}`}}",
               "refId": "A"
             },
             {
               "expr": "sum by(name) (rate(container_network_transmit_bytes_total{name=~\"$container\"}[1m]))",
-              "legendFormat": "{{name}}",
+              "legendFormat": "{{`{{name}}`}}",
               "refId": "B"
             }
           ],
@@ -670,7 +670,7 @@ spec:
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
-              "legendFormat": "{{instance}}",
+              "legendFormat": "{{`{{instance}}`}}",
               "metric": "",
               "refId": "A",
               "step": 20
@@ -679,7 +679,7 @@ spec:
               "expr": "sum by(name) (rate(container_network_transmit_bytes_total{name=~\"$container\"}[1m]))",
               "format": "time_series",
               "intervalFactor": 1,
-              "legendFormat": "{{name}}",
+              "legendFormat": "{{`{{name}}`}}",
               "refId": "B"
             }
           ],
@@ -800,12 +800,12 @@ spec:
           "targets": [
             {
               "expr": "(max by (instance) (irate(node_cpu_seconds_total{job=\"node\", mode=~\"user|system|iowait|softirq\", instance=~\"$host\"}[5m])) * 100)",
-              "legendFormat": "{{instance}}",
+              "legendFormat": "{{`{{instance}}`}}",
               "refId": "A"
             },
             {
               "expr": "sum by(name) (irate(container_cpu_usage_seconds_total{name=~\"$container\"}[1m])) * 100",
-              "legendFormat": "{{name}}",
+              "legendFormat": "{{`{{name}}`}}",
               "refId": "B"
             }
           ],
@@ -877,7 +877,7 @@ spec:
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
-              "legendFormat": "{{instance}}",
+              "legendFormat": "{{`{{instance}}`}}",
               "metric": "",
               "refId": "A",
               "step": 20
@@ -887,7 +887,7 @@ spec:
               "format": "time_series",
               "hide": false,
               "intervalFactor": 1,
-              "legendFormat": "{{name}}",
+              "legendFormat": "{{`{{name}}`}}",
               "refId": "B"
             }
           ],
@@ -1021,7 +1021,7 @@ spec:
           "targets": [
             {
               "expr": "perftest_published{instance=~\"$instance\"}",
-              "legendFormat": "{{instance}}",
+              "legendFormat": "{{`{{instance}}`}}",
               "refId": "A"
             }
           ],
@@ -1079,7 +1079,7 @@ spec:
               "expr": "perftest_published{instance=~\"$instance\"}",
               "format": "time_series",
               "intervalFactor": 1,
-              "legendFormat": "{{instance}}",
+              "legendFormat": "{{`{{instance}}`}}",
               "refId": "A"
             }
           ],
@@ -1200,7 +1200,7 @@ spec:
           "targets": [
             {
               "expr": "perftest_consumed{instance=~\"$instance\"}",
-              "legendFormat": "{{instance}}",
+              "legendFormat": "{{`{{instance}}`}}",
               "refId": "A"
             }
           ],
@@ -1258,7 +1258,7 @@ spec:
               "expr": "perftest_consumed{instance=~\"$instance\"}",
               "format": "time_series",
               "intervalFactor": 1,
-              "legendFormat": "{{instance}}",
+              "legendFormat": "{{`{{instance}}`}}",
               "refId": "A"
             }
           ],
@@ -1379,7 +1379,7 @@ spec:
           "targets": [
             {
               "expr": "perftest_latency_seconds{quantile=\"$percentile\", instance=~\"$instance\"}",
-              "legendFormat": "{{instance}}",
+              "legendFormat": "{{`{{instance}}`}}",
               "refId": "A"
             }
           ],
@@ -1439,7 +1439,7 @@ spec:
               "instant": false,
               "interval": "1s",
               "intervalFactor": 1,
-              "legendFormat": "{{instance}}",
+              "legendFormat": "{{`{{instance}}`}}",
               "refId": "A"
             }
           ],
@@ -1533,7 +1533,7 @@ spec:
               "expr": "perftest_latency_seconds{quantile=\"$percentile\", instance=~\"$instance\"}",
               "format": "time_series",
               "intervalFactor": 1,
-              "legendFormat": "{{instance}}",
+              "legendFormat": "{{`{{instance}}`}}",
               "refId": "A"
             }
           ],
