@@ -13,7 +13,6 @@ on:
 
 env:
   CHART_NAME: "rabbitmq-observability"
-  KIND_VERSION: "0.10.0"
 
 jobs:
   build:
@@ -28,18 +27,6 @@ jobs:
       with:
         persist-credentials: false # otherwise, the token used is the GITHUB_TOKEN, instead of your personal token
         fetch-depth: 0 # otherwise, you will fail to push refs to dest repo
-
-    - name: Install Kind
-      run: |
-        curl -L -o kind https://github.com/kubernetes-sigs/kind/releases/download/v${KIND_VERSION}/kind-linux-amd64
-        sudo install ./kind /usr/local/bin && rm kind
-        kind version
-        kind version | grep -q ${KIND_VERSION}
-
-    - name: Create Kind Cluster
-      run: |
-        kind create cluster
-        kubectl cluster-info
 
     # Generate tag for chart without "v" prefix
     - name: Generate Tag
@@ -137,3 +124,13 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.STAKATER_GITHUB_TOKEN }}
         WITH_V: false
         DEFAULT_BUMP: patch
+
+    - name: Notify Slack
+      uses: 8398a7/action-slack@v3
+      if: always() # Pick up events even if the job fails or is canceled.
+      with:
+        status: ${{ job.status }}
+        fields: repo,author,action,eventName,ref,workflow
+      env:
+        GITHUB_TOKEN: ${{ secrets.STAKATER_GITHUB_TOKEN }}
+        SLACK_WEBHOOK_URL: ${{ secrets.STAKATER_DELIVERY_SLACK_WEBHOOK }}
