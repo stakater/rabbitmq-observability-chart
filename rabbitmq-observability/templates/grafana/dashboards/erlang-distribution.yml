@@ -479,7 +479,7 @@ spec:
               "expr": "erlang_vm_dist_node_state * on(instance) group_left(rabbitmq_node, rabbitmq_cluster) rabbitmq_identity_info{rabbitmq_cluster=\"$rabbitmq_cluster\", namespace=\"$namespace\"}",
               "format": "time_series",
               "intervalFactor": 1,
-              "legendFormat": "{{rabbitmq_node}} -> {{peer}}",
+              "legendFormat": "{{`{{rabbitmq_node}}`}} -> {{`{{peer}}`}}",
               "refId": "A",
               "units": "none",
               "valueHandler": "Number Threshold"
@@ -605,7 +605,7 @@ spec:
               "format": "time_series",
               "interval": "",
               "intervalFactor": 1,
-              "legendFormat": "{{rabbitmq_node}} -> {{peer}}",
+              "legendFormat": "{{`{{rabbitmq_node}}`}} -> {{`{{peer}}`}}",
               "refId": "A"
             }
           ],
@@ -765,7 +765,7 @@ spec:
               "expr": "rate(erlang_vm_dist_send_bytes[60s]) * on(instance) group_left(rabbitmq_cluster, rabbitmq_node) rabbitmq_identity_info{rabbitmq_cluster=\"$rabbitmq_cluster\", namespace=\"$namespace\"}",
               "format": "time_series",
               "intervalFactor": 1,
-              "legendFormat": "{{rabbitmq_node}} -> {{peer}}",
+              "legendFormat": "{{`{{rabbitmq_node}}`}} -> {{`{{peer}}`}}",
               "refId": "A"
             }
           ],
@@ -911,7 +911,7 @@ spec:
               "expr": "rate(erlang_vm_dist_recv_bytes[60s]) * on(instance) group_left(rabbitmq_cluster, rabbitmq_node) rabbitmq_identity_info{rabbitmq_cluster=\"$rabbitmq_cluster\", namespace=\"$namespace\"}",
               "format": "time_series",
               "intervalFactor": 1,
-              "legendFormat": "{{rabbitmq_node}} <- {{peer}}",
+              "legendFormat": "{{`{{rabbitmq_node}}`}} <- {{`{{peer}}`}}",
               "refId": "A"
             }
           ],
@@ -1049,7 +1049,7 @@ spec:
               "expr": "rate(erlang_vm_dist_send_cnt[60s]) * on(instance) group_left(rabbitmq_cluster, rabbitmq_node) rabbitmq_identity_info{rabbitmq_cluster=\"$rabbitmq_cluster\", namespace=\"$namespace\"}",
               "format": "time_series",
               "intervalFactor": 1,
-              "legendFormat": "{{rabbitmq_node}} -> {{peer}}",
+              "legendFormat": "{{`{{rabbitmq_node}}`}} -> {{`{{peer}}`}}",
               "refId": "A"
             }
           ],
@@ -1183,7 +1183,7 @@ spec:
               "expr": "rate(erlang_vm_dist_recv_cnt[60s]) * on(instance) group_left(rabbitmq_cluster, rabbitmq_node) rabbitmq_identity_info{rabbitmq_cluster=\"$rabbitmq_cluster\", namespace=\"$namespace\"}",
               "format": "time_series",
               "intervalFactor": 1,
-              "legendFormat": "{{rabbitmq_node}} <- {{peer}}",
+              "legendFormat": "{{`{{rabbitmq_node}}`}} <- {{`{{peer}}`}}",
               "refId": "A"
             }
           ],
@@ -1317,7 +1317,7 @@ spec:
               "expr": "(rate(erlang_vm_dist_send_bytes[60s]) * on(instance) group_left(rabbitmq_cluster, rabbitmq_node) rabbitmq_identity_info{rabbitmq_cluster=\"$rabbitmq_cluster\", namespace=\"$namespace\"}) / \n(rate(erlang_vm_dist_send_cnt[60s]) * on(instance) group_left(rabbitmq_cluster, rabbitmq_node) rabbitmq_identity_info{rabbitmq_cluster=\"$rabbitmq_cluster\", namespace=\"$namespace\"})",
               "format": "time_series",
               "intervalFactor": 1,
-              "legendFormat": "{{rabbitmq_node}} -> {{peer}}",
+              "legendFormat": "{{`{{rabbitmq_node}}`}} -> {{`{{peer}}`}}",
               "refId": "A"
             }
           ],
@@ -1453,7 +1453,7 @@ spec:
               "expr": "(rate(erlang_vm_dist_recv_bytes[60s]) * on(instance) group_left(rabbitmq_cluster, rabbitmq_node) rabbitmq_identity_info{rabbitmq_cluster=\"$rabbitmq_cluster\", namespace=\"$namespace\"}) / \n(rate(erlang_vm_dist_recv_cnt[60s]) * on(instance) group_left(rabbitmq_cluster, rabbitmq_node) rabbitmq_identity_info{rabbitmq_cluster=\"$rabbitmq_cluster\", namespace=\"$namespace\"})",
               "format": "time_series",
               "intervalFactor": 1,
-              "legendFormat": "{{rabbitmq_node}} <- {{peer}}",
+              "legendFormat": "{{`{{rabbitmq_node}}`}} <- {{`{{peer}}`}}",
               "refId": "A"
             }
           ],
@@ -1601,7 +1601,7 @@ spec:
               "expr": "erlang_vm_dist_port_memory_bytes * on(instance) group_left(rabbitmq_cluster, rabbitmq_node) rabbitmq_identity_info{rabbitmq_cluster=\"$rabbitmq_cluster\", namespace=\"$namespace\"}",
               "format": "time_series",
               "intervalFactor": 1,
-              "legendFormat": "{{rabbitmq_node}} -> {{peer}}",
+              "legendFormat": "{{`{{rabbitmq_node}}`}} -> {{`{{peer}}`}}",
               "refId": "A"
             }
           ],
@@ -1699,7 +1699,7 @@ spec:
               "expr": "erlang_vm_dist_port_queue_size_bytes * on(instance) group_left(rabbitmq_cluster, rabbitmq_node) rabbitmq_identity_info{rabbitmq_cluster=\"$rabbitmq_cluster\", namespace=\"$namespace\"}",
               "format": "time_series",
               "intervalFactor": 1,
-              "legendFormat": "{{rabbitmq_node}} -> {{peer}}",
+              "legendFormat": "{{`{{rabbitmq_node}}`}} -> {{`{{peer}}`}}",
               "refId": "A"
             }
           ],
@@ -1846,7 +1846,7 @@ spec:
               "expr": "erlang_vm_dist_proc_status{type=\"$erlang_vm_dist_proc_type\"} * on(instance) group_left(rabbitmq_node, rabbitmq_cluster) rabbitmq_identity_info{rabbitmq_cluster=\"$rabbitmq_cluster\", namespace=\"$namespace\"} ",
               "format": "time_series",
               "intervalFactor": 1,
-              "legendFormat": "{{rabbitmq_node}} -> {{peer}}",
+              "legendFormat": "{{`{{rabbitmq_node}}`}} -> {{`{{peer}}`}}",
               "refId": "A",
               "units": "none",
               "valueHandler": "Number Threshold"
@@ -1925,7 +1925,7 @@ spec:
               "expr": "erlang_vm_dist_proc_message_queue_len{type=\"$erlang_vm_dist_proc_type\"} * on(instance) group_left(rabbitmq_cluster, rabbitmq_node) rabbitmq_identity_info{rabbitmq_cluster=\"$rabbitmq_cluster\", namespace=\"$namespace\"}",
               "format": "time_series",
               "intervalFactor": 1,
-              "legendFormat": "{{rabbitmq_node}} -> {{peer}}",
+              "legendFormat": "{{`{{rabbitmq_node}}`}} -> {{`{{peer}}`}}",
               "refId": "A"
             }
           ],
@@ -2068,7 +2068,7 @@ spec:
               "expr": "erlang_vm_dist_proc_memory_bytes{type=\"$erlang_vm_dist_proc_type\"} * on(instance) group_left(rabbitmq_node, rabbitmq_cluster) rabbitmq_identity_info{rabbitmq_cluster=\"$rabbitmq_cluster\", namespace=\"$namespace\"}",
               "format": "time_series",
               "intervalFactor": 1,
-              "legendFormat": "{{rabbitmq_node}} -> {{peer}}",
+              "legendFormat": "{{`{{rabbitmq_node}}`}} -> {{`{{peer}}`}}",
               "refId": "A"
             }
           ],
@@ -2202,7 +2202,7 @@ spec:
               "expr": "rate(erlang_vm_dist_proc_reductions{type=\"$erlang_vm_dist_proc_type\"}[60s]) * on(instance) group_left(rabbitmq_cluster, rabbitmq_node) rabbitmq_identity_info{rabbitmq_cluster=\"$rabbitmq_cluster\", namespace=\"$namespace\"}",
               "format": "time_series",
               "intervalFactor": 1,
-              "legendFormat": "{{rabbitmq_node}} -> {{peer}}",
+              "legendFormat": "{{`{{rabbitmq_node}}`}} -> {{`{{peer}}`}}",
               "refId": "A"
             }
           ],

@@ -878,7 +878,7 @@ spec:
           "targets": [
             {
               "expr": "sum by(alloc) (erlang_vm_allocators{usage=\"carriers_size\"} * on(instance) group_left(rabbitmq_cluster, rabbitmq_node) rabbitmq_identity_info{rabbitmq_cluster=\"$rabbitmq_cluster\", namespace=\"$namespace\", rabbitmq_node=\"$rabbitmq_node\"})",
-              "legendFormat": "{{alloc}}",
+              "legendFormat": "{{`{{alloc}}`}}",
               "refId": "A"
             }
           ],
@@ -944,7 +944,7 @@ spec:
               "format": "time_series",
               "instant": false,
               "intervalFactor": 1,
-              "legendFormat": "{{alloc}}",
+              "legendFormat": "{{`{{alloc}}`}}",
               "refId": "A"
             }
           ],
