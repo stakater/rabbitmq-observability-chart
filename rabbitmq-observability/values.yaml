@@ -61,6 +61,16 @@ prometheus:
         enabled: true
       unroutableMessages:
         enabled: true
+      rabbitMqMemoryUsageHigh:
+        enabled: true
+      rabbitMqMemoryAlarm:
+        enabled: true
+      rabbitMqDiskSpaceAlarm:
+        enabled: true
+      rabbitMQServerDown:
+        enabled: true
+      rabbitMqClusterNotAllNodesRunning:
+        enabled: true
     clusterOperator:
       unavailableReplicas:
         enabled: true
