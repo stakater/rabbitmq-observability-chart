@@ -71,6 +71,17 @@ prometheus:
         enabled: true
       rabbitMqClusterNotAllNodesRunning:
         enabled: true
+      rabbitmqDiskSpaceBelowThreshold:
+        enabled: true
+        threshold: 1073741824 #1Gb
+      rabbitmqNodesBelowThreshold:
+        enabled: true
+        threshold: 3
+        rabbitmqCluster: rabbitmq
+      rabbitmqMemoryBelowThreshold:
+        enabled: true
+        threshold: 268435456 #256Mb
+        rabbitmqCluster: rabbitmq
     clusterOperator:
       unavailableReplicas:
         enabled: true
