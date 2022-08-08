@@ -4,7 +4,11 @@ apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
   name: rabbitmq-no-majority-of-nodes-ready
+{{- if .Values.prometheus.rules.rabbitmq.noMajorityOfNodesReady.namespace  }}
+  namespace: {{ .Values.prometheus.rules.rabbitmq.noMajorityOfNodesReady.namespace }}
+{{- else }}
   namespace: {{ .Values.global.namespace | default .Release.Namespace }}
+{{- end }}
   # If labels are defined in spec.ruleSelector.matchLabels of your deployed Prometheus object, make sure to include them here.
   labels:
     role: alert-rules
@@ -15,7 +19,7 @@ spec:
   groups:
   - name: rabbitmq
     rules:
-    - alert: NoMajorityOfNodesReady
+    - alert: RabbitMqNoMajorityOfNodesReady
       expr: |
         kube_statefulset_status_replicas_ready * on (namespace, statefulset) group_left(label_app_kubernetes_io_name) kube_statefulset_labels{label_app_kubernetes_io_component="rabbitmq"}
         <=

@@ -4,7 +4,11 @@ apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
   name: rabbitmq-queue-has-no-consumers
+{{- if .Values.prometheus.rules.rabbitmqPerObject.queueHasNoConsumers.namespace  }}
+  namespace: {{ .Values.prometheus.rules.rabbitmqPerObject.queueHasNoConsumers.namespace }}
+{{- else }}
   namespace: {{ .Values.global.namespace | default .Release.Namespace }}
+{{- end }}
   # If labels are defined in spec.ruleSelector.matchLabels of your deployed Prometheus object, make sure to include them here.
   labels:
     role: alert-rules
@@ -15,7 +19,7 @@ spec:
   groups:
   - name: rabbitmq
     rules:
-    - alert: QueueHasNoConsumers
+    - alert: RabbitMqQueueHasNoConsumers
       expr: |
           (
             ((rabbitmq_detailed_queue_consumers{vhost="/", queue=~".*"} == 0) + rabbitmq_detailed_queue_messages) > 0
