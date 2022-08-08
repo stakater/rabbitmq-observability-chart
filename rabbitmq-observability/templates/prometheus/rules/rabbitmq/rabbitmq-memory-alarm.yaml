@@ -4,7 +4,11 @@ apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
   name: rabbitmq-memory-alarm
+{{- if .Values.prometheus.rules.rabbitmq.rabbitMqMemoryAlarm.namespace  }}
+  namespace: {{ .Values.prometheus.rules.rabbitmq.rabbitMqMemoryAlarm.namespace }}
+{{- else }}
   namespace: {{ .Values.global.namespace | default .Release.Namespace }}
+{{- end }}
   # If labels are defined in spec.ruleSelector.matchLabels of your deployed Prometheus object, make sure to include them here.
   labels:
     role: alert-rules

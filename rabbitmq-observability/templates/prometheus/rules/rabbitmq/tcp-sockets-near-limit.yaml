@@ -4,7 +4,11 @@ apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
   name: rabbitmq-tcp-sockets-near-limit
+{{- if .Values.prometheus.rules.rabbitmq.tcpSocketsNearLimit.namespace  }}
+  namespace: {{ .Values.prometheus.rules.rabbitmq.tcpSocketsNearLimit.namespace }}
+{{- else }}
   namespace: {{ .Values.global.namespace | default .Release.Namespace }}
+{{- end }}
   # If labels are defined in spec.ruleSelector.matchLabels of your deployed Prometheus object, make sure to include them here.
   labels:
     role: alert-rules
@@ -15,7 +19,7 @@ spec:
   groups:
   - name: rabbitmq
     rules:
-    - alert: TCPSocketsNearLimit
+    - alert: RabbitMqTCPSocketsNearLimit
       expr: |
         sum by(namespace, rabbitmq_cluster, pod, rabbitmq_node) (max_over_time(rabbitmq_process_open_tcp_sockets[5m]) * on(instance) group_left(rabbitmq_cluster, rabbitmq_node, pod) rabbitmq_identity_info)
         /

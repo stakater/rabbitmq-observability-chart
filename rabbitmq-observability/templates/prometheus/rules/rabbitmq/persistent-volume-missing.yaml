@@ -4,7 +4,11 @@ apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
   name: rabbitmq-persistent-volume-missing
+{{- if .Values.prometheus.rules.rabbitmq.persistentVolumeMissing.namespace  }}
+  namespace: {{ .Values.prometheus.rules.rabbitmq.persistentVolumeMissing.namespace }}
+{{- else }}
   namespace: {{ .Values.global.namespace | default .Release.Namespace }}
+{{- end }}
   # If labels are defined in spec.ruleSelector.matchLabels of your deployed Prometheus object, make sure to include them here.
   labels:
     role: alert-rules
@@ -15,7 +19,7 @@ spec:
   groups:
   - name: rabbitmq
     rules:
-    - alert: PersistentVolumeMissing
+    - alert: RabbitMqPersistentVolumeMissing
       expr: |
         kube_persistentvolumeclaim_status_phase{phase="Bound"} * on (namespace, persistentvolumeclaim) group_left(label_app_kubernetes_io_name) kube_persistentvolumeclaim_labels{label_app_kubernetes_io_component="rabbitmq"}
         ==
