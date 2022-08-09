@@ -20,11 +20,11 @@ spec:
   - name: rabbitmq
     rules:
     - alert: RabbitmqMemoryBelowThreshold
-      expr: (rabbitmq_resident_memory_limit_bytes * on(instance) group_left(rabbitmq_cluster, rabbitmq_node) rabbitmq_identity_info{rabbitmq_cluster=\"{{ .Values.prometheus.rules.rabbitmq.rabbitmqNodesBelowThreshold.rabbitmqCluster }}\"}) - (rabbitmq_process_resident_memory_bytes * on(instance) group_left(rabbitmq_cluster, rabbitmq_node) rabbitmq_identity_info{rabbitmq_cluster=\"{{ .Values.prometheus.rules.rabbitmq.rabbitmqNodesBelowThreshold.rabbitmqCluster }}\" }) < {{ .Values.prometheus.rules.rabbitmq.rabbitmqMemoryBelowThreshold.threshold }}
+      expr: (rabbitmq_resident_memory_limit_bytes * on(instance) group_left(rabbitmq_cluster, rabbitmq_node) rabbitmq_identity_info{rabbitmq_cluster="{{ .Values.prometheus.rules.rabbitmq.rabbitmqNodesBelowThreshold.rabbitmqCluster }}"}) - (rabbitmq_process_resident_memory_bytes * on(instance) group_left(rabbitmq_cluster, rabbitmq_node) rabbitmq_identity_info{rabbitmq_cluster="{{ .Values.prometheus.rules.rabbitmq.rabbitmqNodesBelowThreshold.rabbitmqCluster }}" }) < {{ .Values.prometheus.rules.rabbitmq.rabbitmqMemoryBelowThreshold.threshold }}
       for: 1m
       annotations:
-        description: RabbitMQ {{`{{ $labels.instance }}`}} Disk Space threshold has been reached. Current value=`{{`{{ $value | printf "%.0f" }}`}}`, Threshold= {{ .Values.prometheus.rules.rabbitmq.rabbitmqMemoryBelowThreshold.threshold }}
-        summary: RabbitMQ is Out of Disk Space
+        description: RabbitMQ {{`{{ $labels.instance }}`}} Memory threshold has been reached. Current value=`{{`{{ $value | printf "%.0f" }}`}}`, Threshold= {{ .Values.prometheus.rules.rabbitmq.rabbitmqMemoryBelowThreshold.threshold }}
+        summary: RabbitMQ is Out of Memory
       labels:
         rabbitmq_cluster: '{{`{{ $labels.label_app_kubernetes_io_name }}`}}'
         rulesgroup: rabbitmq
