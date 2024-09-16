@@ -1,6 +1,6 @@
 name: Push
 
-concurrency: 
+concurrency:
  group: push_on_master
  cancel-in-progress: false
 
@@ -9,7 +9,7 @@ on:
     branches:
       - main
     paths-ignore:
-    - 'README.md'      
+    - 'README.md'
 
 env:
   CHART_NAME: "rabbitmq-observability"
@@ -19,9 +19,7 @@ jobs:
     name: Build
     if: "! contains(toJSON(github.event.commits.*.message), '[skip-ci]')"
     runs-on: ubuntu-latest
-    
     steps:
-
     - name: Check out code
       uses: actions/checkout@v2
       with:
@@ -56,10 +54,6 @@ jobs:
       run: |
         helm lint ${CHART_NAME}
 
-    # Dry run to ensure that manifests are generated successfully 
-    #- name: Dry Run Chart
-    #  run: |
-    #    helm install ${CHART_NAME} ${CHART_NAME} -f ${CHART_NAME}/values.yaml -n stakater-chart-pipeline-test --dry-run --debug
     # Publish helm chart
     - name: Publish Helm chart
       uses: stefanprodan/helm-gh-pages@master
@@ -71,7 +65,7 @@ jobs:
         charts_dir: .
         charts_url: https://stakater.github.io/stakater-charts
         owner: stakater
-        linting: off 
+        linting: off
         commit_username: stakater-user
         commit_email: stakater@gmail.com
 
@@ -80,9 +74,9 @@ jobs:
       run: |
         git config --local user.email "stakater@gmail.com"
         git config --local user.name "stakater-user"
-        git status 
+        git status
         git add rabbitmq-observability/Chart.yaml
-        git commit -m "[skip-ci] Update artifacts" 
+        git commit -m "[skip-ci] Update artifacts"
 
     # Push Chart.yaml with Updated Version
     - name: Push changes
@@ -117,7 +111,7 @@ jobs:
             fi
           done
         fi
-  
+
     - name: Push Latest Tag
       uses: anothrNick/github-tag-action@1.36.0
       env:
