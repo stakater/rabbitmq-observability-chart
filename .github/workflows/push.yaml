@@ -31,7 +31,7 @@ jobs:
       id: generate_tag
       uses: anothrNick/github-tag-action@1.36.0
       env:
-        GITHUB_TOKEN: ${{ secrets.STAKATER_GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.PUBLISH_TOKEN }}
         WITH_V: false
         DEFAULT_BUMP: patch
         DRY_RUN: true
@@ -61,7 +61,7 @@ jobs:
         branch: master
         repository: stakater-charts
         target_dir: docs
-        token: ${{ secrets.STAKATER_GITHUB_TOKEN }}
+        token: ${{ secrets.PUBLISH_TOKEN }}
         charts_dir: .
         charts_url: https://stakater.github.io/stakater-charts
         owner: stakater
@@ -84,7 +84,7 @@ jobs:
       run: |
         git config --local user.email "stakater@gmail.com"
         git config --local user.name "stakater-user"
-        git remote set-url origin https://x-access-token:${{ secrets.STAKATER_GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY
+        git remote set-url origin https://x-access-token:${{ secrets.PUBLISH_TOKEN }}@github.com/$GITHUB_REPOSITORY
         git push origin
         if [ $? -eq 0 ]; then
             echo OK Pushed Succesfully.
@@ -115,7 +115,7 @@ jobs:
     - name: Push Latest Tag
       uses: anothrNick/github-tag-action@1.36.0
       env:
-        GITHUB_TOKEN: ${{ secrets.STAKATER_GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.PUBLISH_TOKEN }}
         WITH_V: false
         DEFAULT_BUMP: patch
 
@@ -126,5 +126,5 @@ jobs:
         status: ${{ job.status }}
         fields: repo,author,action,eventName,ref,workflow
       env:
-        GITHUB_TOKEN: ${{ secrets.STAKATER_GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.PUBLISH_TOKEN }}
         SLACK_WEBHOOK_URL: ${{ secrets.STAKATER_DELIVERY_SLACK_WEBHOOK }}
